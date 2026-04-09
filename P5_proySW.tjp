@@ -410,7 +410,6 @@ taskreport initialPlan "Planificación inicial" {
           revenue, chart { ${TaskTip} scale day width 500 }
   timeformat "%Y-%m-%d"
   loadunit days
-  hideresource @all
   balance cost rev
 }
 
