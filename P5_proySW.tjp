@@ -206,15 +206,20 @@ task tMFE "Mobile Front End" {
     note "Construction of the mobile front end of the game"
   }
 
-  task tMFEt "Mobile Front End Test" {
-    effort 3d
-    allocate dev1
+  task tMFEd "Mobile Front End Deploy" {
     depends tMFE.tMFEc
     note "Testing of the mobile front end of the game"
 
     task tMFEd "Mobile Front End Documentation" {
       effort 3d
       allocate dev1
+    }
+
+    task tMFEtt "Mobile Front End Test" {
+      effort 3d
+      allocate dev1
+      depends tMFEd
+      note "Testing of the mobile front end of the game"
     }
   }
 }
