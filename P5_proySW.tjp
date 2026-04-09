@@ -201,27 +201,25 @@ task tMFE "Mobile Front End" {
   note "Development of the mobile front end of the game"
 
   task tMFEc "Mobile Front End Construction" {
-    effort 20d
+    effort 10d
     allocate dev3
     note "Construction of the mobile front end of the game"
   }
 
   task tMFEt "Mobile Front End Test" {
-    effort 6d
+    effort 3d
     allocate dev1
     depends WMGame.tMFE.tMFEc, WMGame.tMFE.tMFEd
     note "Testing of the mobile front end of the game"
 
     task tMFEd "Mobile Front End Documentation" {
-      effort 5d
+      effort 3d
       allocate dev1
     }
   }
 }
 
 task tBCD "Backend Cloud Deployment" {
-  effort 10d
-  allocate dev1
   depends WMGame.tback.tbackDev
   note "Deployment of the back end of the game to the cloud"
 
@@ -333,7 +331,7 @@ taskreport overview "" {
   headline "Current Project Plan"
   columns bsi { title 'WBS' },
           name, start, end, effort, cost,
-          revenue, chart { ${TaskTip} }
+          charge, chart { ${TaskTip} }
   # For this report we like to have the abbreviated weekday in front
   # of the date. %a is the tag for this.
   timeformat "%a %Y-%m-%d"
@@ -424,15 +422,6 @@ resourcereport resourceGraph "" {
   # We only like to show leaf tasks for leaf resources.
   hidetask ~(isleaf() & isleaf_())
   sorttasks plan.start.up
-}
-
-taskreport deliveries "" {
-  scenarios actual
-  headline "Project Deliveries"
-  columns name, start, end, charge { title "Payment" },
-          chart { ${TaskTip} scale day width 500 }
-  timeformat "%Y-%m-%d"
-  hideresource @all
 }
 
 # Soy ibai soy un mason
