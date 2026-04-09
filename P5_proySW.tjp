@@ -209,7 +209,7 @@ task tMFE "Mobile Front End" {
   task tMFEt "Mobile Front End Test" {
     effort 3d
     allocate dev1
-    depends WMGame.tMFE.tMFEc, WMGame.tMFE.tMFEd
+    depends tMFE.tMFEc, tMFE.tMFEd
     note "Testing of the mobile front end of the game"
 
     task tMFEd "Mobile Front End Documentation" {
@@ -238,7 +238,7 @@ task tBCD "Backend Cloud Deployment" {
   task tBCDtest "Deployment Test" {
     effort 5d
     allocate dev1
-    depends WMGame.tBCD.tBCDk8s, WMGame.tBCD.tBCDdoc
+    depends tBCD.tBCDk8s, tBCD.tBCDdoc
     note "Testing of the deployment of the back end of the game to the cloud"
     journalentry ${now} "Deployment testing has taken more time than expected" {
       author dev1
@@ -250,7 +250,7 @@ task tBCD "Backend Cloud Deployment" {
   task tBCDperf "Deployment Performance Optimization" {
     effort 5d
     allocate dev1
-    depends WMGame.tBCD.tBCDtest
+    depends tBCD.tBCDtest
     note "Performance optimization of the deployment of the back end of the game to the cloud"
   }
 }
