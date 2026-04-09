@@ -218,7 +218,6 @@ task tMFE "Mobile Front End" {
     task tMFEtt "Mobile Front End Test" {
       effort 3d
       allocate dev1
-      depends tMFEd
       note "Testing of the mobile front end of the game"
     }
   }
