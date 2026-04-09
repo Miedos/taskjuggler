@@ -317,6 +317,12 @@ textreport frame "" {
     center '<[report id="development"]>'
   }
 
+  textreport "InitialPlan" {
+    formats html
+    title "Initial Project Plan"
+    center '<[report id="initialPlan"]>'
+  }
+
   textreport "ContactList" {
     formats html
     title "Contact List"
