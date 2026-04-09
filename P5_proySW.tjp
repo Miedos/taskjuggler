@@ -19,7 +19,7 @@ project pSix "Web Game"  2025-12-15 +5m {
   # the project reports. If not specified, the current day will be
   # used, but this will likely be outside of the project range, so it
   # can't be seen in the reports.
-  now 2026-02-25-13:00
+  now 2026-04-01-13:00
   # The currency for all money values is the US Dollar.
   currency "EUR"
 
@@ -67,6 +67,14 @@ resource dev2 "Samantha Müller" {
 }
 resource dev3 "Peter Green" {
   email "kkk@unizar.es"
+}
+
+resource dev4 "Daniel Gallán Soro" {
+  email "900765@unizar.es"
+  workinghours 20:00 - 00:00
+  limits {
+    dailymax 4h
+  }
 }
 
 # Now we specify the work packages. The whole project is described as
@@ -154,6 +162,7 @@ task WMGame "Web & Mobile Game" {
       actual:effort 20d
       depends WMGame.twebF
       depends WMGame.tback
+      minstart 2026-05-15
       }
 
     
@@ -181,6 +190,70 @@ task WMGame "Web & Mobile Game" {
       depends WMGame.ttest
       charge 12000.0 onstart
     }
+  }
+}
+
+task tMFE "Mobile Front End" {
+  purge chargeset
+  chargeset mFront
+  responsible dev3
+  depends WMGame.tback.tBEd
+  summary "Development of the mobile front end of the game"
+
+  task tMFEc "Mobile Front End Construction" {
+    effort 20d
+    allocate dev3
+    summary "Construction of the mobile front end of the game"
+  }
+
+  task tMFEt "Mobile Front End Test" {
+    effort 6d
+    allocate dev1
+    depends WMGame.tMFE.tMFEc, WMGame.tMFE.tMFEd
+    summary "Testing of the mobile front end of the game"
+
+    task tMFEd "Mobile Front End Documentation" {
+      effort 5d
+      allocate dev1
+    }
+  }
+}
+
+task tBCD "Backend Cloud Deployment" {
+  effort 10d
+  allocate dev1
+  depends WMGame.tback.tbackDev
+  summary "Deployment of the back end of the game to the cloud"
+
+  task tBCDk8s "Kubernetes Deployment" {
+    effort 5d
+    allocate dev1
+    summary "Deployment of the back end of the game to Kubernetes"
+  }
+
+  task tBCDdoc "Deployment Documentation" {
+    effort 5d
+    allocate dev1
+    summary "Documentation of the deployment of the back end of the game to the cloud"
+  }
+
+  task tBCDtest "Deployment Test" {
+    effort 5d
+    allocate dev1
+    depends WMGame.tBCD.tBCDk8s, WMGame.tBCD.tBCDdoc
+    summary "Testing of the deployment of the back end of the game to the cloud"
+    journalentry ${now} "Deployment testing has taken more time than expected" {
+      author dev1
+      alert yellow
+      summary "The deployment testing has taken more time than expected. We need to investigate the cause of this delay."
+    }
+  }
+
+  task tBCDperf "Deployment Performance Optimization" {
+    effort 5d
+    allocate dev1
+    depends WMGame.tBCD.tBCDtest
+    summary "Performance optimization of the deployment of the back end of the game to the cloud"
   }
 }
 
@@ -351,4 +424,13 @@ resourcereport resourceGraph "" {
   # We only like to show leaf tasks for leaf resources.
   hidetask ~(isleaf() & isleaf_())
   sorttasks plan.start.up
+}
+
+taskreport deliveries "" {
+  scenarios actual
+  headline "Project Deliveries"
+  columns name, start, end, charge { title "Payment" },
+          chart { ${TaskTip} scale day width 500 }
+  timeformat "%Y-%m-%d"
+  hideresource @all
 }
