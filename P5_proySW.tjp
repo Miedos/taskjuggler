@@ -199,6 +199,8 @@ task tMFE "Mobile Front End" {
   responsible dev3
   depends WMGame.tback.tBEd
   note "Development of the mobile front end of the game"
+  effort 15d
+  allocate dev3
 
   task tMFEc "Mobile Front End Construction" {
     effort 10d
