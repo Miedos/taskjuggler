@@ -196,13 +196,13 @@ task WMGame "Web & Mobile Game" {
 task tMFE "Mobile Front End" {
   purge chargeset
   chargeset mFront
-  responsible dev3
+  responsible dev4
   depends WMGame.tback.tBEd
   note "Development of the mobile front end of the game"
 
   task tMFEc "Mobile Front End Construction" {
     effort 10d
-    allocate dev3
+    allocate dev4
     note "Construction of the mobile front end of the game"
   }
 
@@ -212,12 +212,12 @@ task tMFE "Mobile Front End" {
 
     task tMFEd "Mobile Front End Documentation" {
       effort 3d
-      allocate dev1
+      allocate dev4
     }
 
     task tMFEtt "Mobile Front End Test" {
       effort 3d
-      allocate dev1
+      allocate dev4
       note "Testing of the mobile front end of the game"
     }
   }
@@ -403,6 +403,17 @@ taskreport development "" {
   sortresources name.up
 }
 
+taskreport initialPlan "Planificación inicial" {
+  scenarios plan
+  headline "Initial Project Plan"
+  columns bsi { title 'WBS' }, name, start, end, effort, cost,
+          revenue, chart { ${TaskTip} scale day width 500 }
+  timeformat "%Y-%m-%d"
+  loadunit days
+  hideresource @all
+  balance cost rev
+}
+
 # A list of all employees with their contact details.
 resourcereport contactList "" {
   scenarios actual
@@ -428,4 +439,3 @@ resourcereport resourceGraph "" {
   sorttasks plan.start.up
 }
 
-# Soy ibai soy un mason
