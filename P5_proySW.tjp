@@ -71,6 +71,7 @@ resource dev3 "Peter Green" {
 
 resource dev4 "Daniel Gallán Soro" {
   email "900765@unizar.es"
+  workinghours mon - fri 20:00 - 24:00
   limits {
     dailymax 4h
   }
@@ -197,19 +198,19 @@ task tMFE "Mobile Front End" {
   chargeset mFront
   responsible dev3
   depends WMGame.tback.tBEd
-  summary "Development of the mobile front end of the game"
+  note "Development of the mobile front end of the game"
 
   task tMFEc "Mobile Front End Construction" {
     effort 20d
     allocate dev3
-    summary "Construction of the mobile front end of the game"
+    note "Construction of the mobile front end of the game"
   }
 
   task tMFEt "Mobile Front End Test" {
     effort 6d
     allocate dev1
     depends WMGame.tMFE.tMFEc, WMGame.tMFE.tMFEd
-    summary "Testing of the mobile front end of the game"
+    note "Testing of the mobile front end of the game"
 
     task tMFEd "Mobile Front End Documentation" {
       effort 5d
@@ -222,25 +223,25 @@ task tBCD "Backend Cloud Deployment" {
   effort 10d
   allocate dev1
   depends WMGame.tback.tbackDev
-  summary "Deployment of the back end of the game to the cloud"
+  note "Deployment of the back end of the game to the cloud"
 
   task tBCDk8s "Kubernetes Deployment" {
     effort 5d
     allocate dev1
-    summary "Deployment of the back end of the game to Kubernetes"
+    note "Deployment of the back end of the game to Kubernetes"
   }
 
   task tBCDdoc "Deployment Documentation" {
     effort 5d
     allocate dev1
-    summary "Documentation of the deployment of the back end of the game to the cloud"
+    note "Documentation of the deployment of the back end of the game to the cloud"
   }
 
   task tBCDtest "Deployment Test" {
     effort 5d
     allocate dev1
     depends WMGame.tBCD.tBCDk8s, WMGame.tBCD.tBCDdoc
-    summary "Testing of the deployment of the back end of the game to the cloud"
+    note "Testing of the deployment of the back end of the game to the cloud"
     journalentry ${now} "Deployment testing has taken more time than expected" {
       author dev1
       alert yellow
@@ -252,7 +253,7 @@ task tBCD "Backend Cloud Deployment" {
     effort 5d
     allocate dev1
     depends WMGame.tBCD.tBCDtest
-    summary "Performance optimization of the deployment of the back end of the game to the cloud"
+    note "Performance optimization of the deployment of the back end of the game to the cloud"
   }
 }
 
