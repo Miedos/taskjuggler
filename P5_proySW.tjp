@@ -403,10 +403,10 @@ taskreport development "" {
   sortresources name.up
 }
 
-taskreport initialPlan "Planificación inicial" {
+taskreport initialPlan "" {
   scenarios plan
   headline "Initial Project Plan"
-  columns bsi { title 'WBS' }, name, start, end, effort, cost,
+  columns bsi { title 'Tasks' }, name, start, end, effort, cost,
           revenue, chart { ${TaskTip} scale day width 500 }
   timeformat "%Y-%m-%d"
   loadunit days
