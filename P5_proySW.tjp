@@ -434,3 +434,5 @@ taskreport deliveries "" {
   timeformat "%Y-%m-%d"
   hideresource @all
 }
+
+# Soy ibai soy un mason
