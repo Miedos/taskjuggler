@@ -71,7 +71,6 @@ resource dev3 "Peter Green" {
 
 resource dev4 "Daniel Gallán Soro" {
   email "900765@unizar.es"
-  workinghours 20:00 - 00:00
   limits {
     dailymax 4h
   }
